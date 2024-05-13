@@ -63,7 +63,7 @@ Congestion control:
 - No more than one NON notification per RTT
 - Wait for ack of a single CON
 ---
-# Aggregation and scheduling 
+
 ## Definitions - Nodes 
 - $N$: The set of WSN **Nodes**
 - $N^S\subset N$: The set of **sources**
@@ -88,3 +88,51 @@ $W^L(p^k_{n_i})$ is the moment when all notifications are available
 
 $W^H(p^k_{n_i})$ is the moment when all notifications have been sent out
 
+---
+
+## Definitions - Aggregation and scheduling
+When an observation request arrives:
+- Choose the the subject server (and intermediate proxies)
+- Determine the registrations to do
+In order to guarantee the notification delivery in an optimized way. 
+
+---
+
+## Problem formalization
+
+$S(n)$ denotes the set of subjects that node $n \in N$ has in its namespace. 
+
+---
+## Problem formalization
+
+$S(n)$ denotes the set of subjects that node $n \in N$ has in its namespace. 
+While acting as a client/observer $n$ can have a set of observations 
+$O(n)$.
+
+---
+
+## Problem formalization
+
+$S(n)$ denotes the set of subjects that node $n \in N$ has in its namespace. 
+While acting as a client/observer $n$ can have a set of observations 
+$O(n)$.
+Each $o \in O(n)$ has a source (server/proxy) denoted $srv(o)$ and a subject $sub(o)$
+
+---
+
+## Problem formalization
+Also transmission plans have a set of observations $O(p^k_n)$
+An $o \in O(p^k_n)$ besides $sub(o)$ and $srv(o)$ has a set of clients/destinations to which the notification must be sent $D(o)$
+
+---
+
+## Problem formalization - New request arrives
+Assuming a request for observation $r$ has arrived.
+$sub(r)$ is the subject to be observed. 
+The subject is available at a set denoted:
+$N^S = \{n \in N \setminus N^D:(sub(r) \in S(n))$ $\ \ \ \ \ \ \ \ \ \ \ \ \ \vee ( \exists o \in O(n):sub(r)=sub(o))\}$
+
+$N^S$ includes the nodes having subject in their namespace and nodes having subject notifications in their cache
+
+
+--- 
