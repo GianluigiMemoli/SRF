@@ -16,7 +16,7 @@ The possibility of organizing an high number of sensors inside a network led to 
 ---
 
 ### Enabling technologies 
-The innovation is made possible by several key technologies:
+The innovation has been made possible by several key technologies:
 - Cloud computing
 - 6LoWPAN
 - Protocols for constrained networks
@@ -72,7 +72,7 @@ In a M2M $N^D$ will include each WSN node, in a monitoring application will cont
 ---
 ## Definitions - Transmission plan
 A node can have a transmission plan, containing a set of observation requests.
-- $p^k_{n_i}$: A transmission plan at node $n_i$ 
+- $p^k_{n_i}$: The k-th transmission plan at node $n_i$ 
 
 The period, after all plan's data have been received, during which plan's data will be transmitted is defined **Transmission Window** of a plan.
 
@@ -136,3 +136,41 @@ $N^S$ includes the nodes having subject in their namespace and nodes having subj
 
 
 --- 
+
+## Problem formalization - Shortest forwarding
+When a new request $r$ comes we want to choose the shortest forwarding and highest saving of extra byte transmissions.
+
+---
+
+## Minimizing the costs
+
+$\sum\limits_{n_i \in N \setminus N^D}  \sum\limits_{p^k_{n_i} \in P(n_i)} \sum\limits_{n_j \in N \setminus N^S : n_j \neq n_i} \sigma^{n_i,n_j}_{p^k_{n_i}} \times OWD^{n_i}_{n_j} \times[1 + \Delta (n_i, p^k_{n_i}, n_j, r)]$
+
+$$
+\sigma^{n_i,n_j}_{p^k_{n_i}} = \begin{cases}
+ 1,   \text{when a notification from $p^k_{n_i}$ flows into $n_j$ } \\
+ 0,   \text{otherwise}
+\end{cases}
+$$
+$$
+OWD^{n_i}_{n_j}: \text{one way delay from $n_i$ to $n_j$} 
+\text{measured as } \ \frac{RTT}{2}
+$$
+---
+
+## Minimizing the costs
+
+$\sum\limits_{n_i \in N \setminus N^D}  \sum\limits_{p^k_{n_i} \in P(n_i)} \sum\limits_{n_j \in N \setminus N^S : n_j \neq n_i} \sigma^{n_i,n_j}_{p^k_{n_i}} \times OWD^{n_i}_{n_j} \times[1 + \Delta (n_i, p^k_{n_i}, n_j, r)]$
+Weight function: 
+$$
+\begin{equation}
+\Delta(n_i, p^k_{n_i}, n_j, r) = \max \{ \chi(p^k_{n_i}, n_j) \times \delta , 1 - \chi(p^k_{n_i}, n_j) \} \times (1 - b^{n_j}_{sub(r)})
+\end{equation}
+$$
+$$
+\begin{equation}
+\chi(p^k_{n_i}, n_j) = \Biggl \lceil \frac{ | \{ o\in O(p^k_{n_i}) : n_j \in D(o) \}| }{|O( p^k_{n_i})|} \Biggr \rceil 
+
+\end{equation}
+$$
+---
